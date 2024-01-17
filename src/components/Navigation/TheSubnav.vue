@@ -1,7 +1,7 @@
 <template>
   <div class="border-grand-1 h-16 w-full border-b border-solid bg-white">
     <div class="flex h-full items-center px-8">
-      <div>
+      <div v-if="onJobResultsPage">
         <font-awesome-icon :icon="['fas', 'search']" class="mr-3" />
         <span><span class="text-brand-green-1">1634</span> jobs matched</span>
       </div>
@@ -11,6 +11,11 @@
 
 <script>
 export default {
-  name: 'TheSubnav'
+  name: 'TheSubnav',
+  computed: {
+    onJobResultsPage() {
+      return this.$route.name === 'JobResults'
+    }
+  }
 }
 </script>
