@@ -9,6 +9,7 @@
       </div>
 
       <job-filter-sidebar-organizations />
+      <job-f-ilter-sidebar-job-types />
     </seaction>
   </div>
 </template>
@@ -16,8 +17,9 @@
 <script>
 import ActionButton from '@/components/Shared/ActionButton.vue'
 import JobFilterSidebarOrganizations from './JobFilterSidebarOrganizations.vue'
+import JobFIlterSidebarJobTypes from './JobFIlterSidebarJobTypes.vue'
 export default {
   name: 'JobFiltersSideBar',
-  components: { ActionButton, JobFilterSidebarOrganizations }
+  components: { ActionButton, JobFilterSidebarOrganizations, JobFIlterSidebarJobTypes }
 }
 </script>

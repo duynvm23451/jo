@@ -26,7 +26,7 @@ export const useJobsStore = defineStore('jobs', {
     },
     [UNIQUE_JOB_TYPES](state) {
       const uniqueJobTypes = new Set()
-      state.jobs.forEach((job) => uniqueJobTypes.add(job.type))
+      state.jobs.forEach((job) => uniqueJobTypes.add(job.jobType))
       return uniqueJobTypes
     },
     [FILTERED_JOBS_BY_ORGANIZATIONS](state) {
@@ -42,8 +42,9 @@ export const useJobsStore = defineStore('jobs', {
       const userStore = useUserStore()
 
       if (userStore.selectedJobTypes.length === 0) {
-        return state.jobs.filter((job) => userStore.selectedJobTypes.includes(job.jobType))
+        return state.jobs
       }
+      return state.jobs.filter((job) => userStore.selectedJobTypes.includes(job.jobType))
     }
   }
 })
