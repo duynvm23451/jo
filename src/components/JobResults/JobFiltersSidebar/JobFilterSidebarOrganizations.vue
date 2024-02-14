@@ -1,47 +1,20 @@
 <template>
-  <collapsible-accordion header="Organization">
-    <div class="mt-5">
-      <fieldset>
-        <ul class="flex flex-row flex-wrap">
-          <li v-for="organization in UNIQUE_ORGANIZATIONS" :key="organization" class="h-8 w-1/2">
-            <input
-              :id="organization"
-              v-model="selectedOrganizations"
-              :value="organization"
-              type="checkbox"
-              class="mr-3"
-              @change="selectOrganization"
-            />
-            <label :for="organization">{{ organization }}</label>
-          </li>
-        </ul>
-      </fieldset>
-    </div>
-  </collapsible-accordion>
+  <job-filters-side-bar-check-box-group
+    :unique-values="UNIQUE_ORGANIZATIONS"
+    :action="ADD_SELECTED_ORGANIZATIONS"
+  />
 </template>
 
-<script>
-import { mapState, mapActions } from 'pinia'
+<script lang="ts" setup>
+import { useJobsStore } from '@/stores/jobs'
+import { useUserStore } from '@/stores/user'
+import { computed } from 'vue'
 
-import { useJobsStore, UNIQUE_ORGANIZATIONS } from '@/stores/jobs'
-import { useUserStore, ADD_SELECTED_ORGANIZATIONS } from '@/stores/user'
-import CollapsibleAccordion from '@/components/Shared/CollapsibleAccordion.vue'
-export default {
-  name: 'JobFilterSidebarOrganizations',
-  components: { CollapsibleAccordion },
-  data() {
-    return {
-      selectedOrganizations: []
-    }
-  },
-  computed: {
-    ...mapState(useJobsStore, [UNIQUE_ORGANIZATIONS])
-  },
-  methods: {
-    ...mapActions(useUserStore, [ADD_SELECTED_ORGANIZATIONS]),
-    selectOrganization() {
-      this.ADD_SELECTED_ORGANIZATIONS(this.selectedOrganizations)
-    }
-  }
-}
+import JobFiltersSideBarCheckBoxGroup from './JobFiltersSideBarCheckBoxGroup.vue'
+
+const jobsStore = useJobsStore()
+const UNIQUE_ORGANIZATIONS = computed(() => jobsStore.UNIQUE_ORGANIZATIONS)
+
+const userStore = useUserStore()
+const ADD_SELECTED_ORGANIZATIONS = userStore.ADD_SELECTED_ORGANIZATIONS
 </script>
